@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import useForm from "../../hooks/useForm";
 import { types } from "../../types/types";
+import styles from "./AddUser.module.css";
 
 export const UsersContext = createContext();
 
@@ -56,6 +57,7 @@ const AddUser = () => {
   const [state, dispatch] = useReducer(usersReducer, InitialSateUsersReducer);
   // const [users, setUsers] = useState(InitialSateUsersReducer);
   const [form, handleChange] = useForm();
+  const [redColor, setRedColor] = useState(true);
 
   const createUser = () => {
     const id = Date.now();
@@ -88,7 +90,7 @@ const AddUser = () => {
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <UsersContext.Provider
         value={{
           state,
@@ -96,39 +98,49 @@ const AddUser = () => {
         }}
       ></UsersContext.Provider>
 
-      <div>AddUser</div>
+      <div
+        style={{
+          backgroundColor: "white",
+        }}
+      >
+        <h1 className={`${styles.title} ${redColor && styles.red}`}>
+          ADD USER
+        </h1>
+      </div>
 
-      <form>
-        <input
-          type="text"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          placeholder="Nombre"
-        />
-        <input
-          type="email"
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        <input
-          type="text"
-          name="address"
-          value={form.address}
-          onChange={handleChange}
-          placeholder="Direccion"
-        />
-        <input
-          type="number"
-          name="phone"
-          value={form.phone}
-          onChange={handleChange}
-          placeholder="Telefono"
-        />
-        <input type="submit" value="Add User" onClick={handleSubmit} />
-      </form>
+      <div className={styles["container-form"]}>
+        <form>
+          <input
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Nombre"
+          />
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Email"
+          />
+          <input
+            type="text"
+            name="address"
+            value={form.address}
+            onChange={handleChange}
+            placeholder="Direccion"
+          />
+          <input
+            type="number"
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            placeholder="Telefono"
+          />
+          <input type="submit" value="Add User" onClick={handleSubmit} />
+        </form>
+      </div>
 
       <hr />
 
@@ -143,7 +155,7 @@ const AddUser = () => {
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 
